@@ -1,0 +1,7 @@
+---
+- name: Simple playbook
+  hosts: aerith
+  tasks:
+    - name: Say hello
+      ansible.builtin.debug:
+        msg: Alright Everybody, let's mosey!
