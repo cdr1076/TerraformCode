@@ -1,0 +1,19 @@
+---
+- name: Create Folder to save downloaded NASA file
+  hosts: windows
+
+  vars:
+          nasa_apod: "https://api.nasa.gov/assets/img/general/apod.jpg"    
+  tasks:
+      - name: Create Dest Folder
+        ansible.windows.win_file:
+          path: "C:\\Users\\{{ ansible_user }}\\Desktop\\nasa"
+          state: directory
+
+
+      - name: Get a fun background graphic
+        ansible.windows.win_get_url:
+          url: "{{ nasa_apod }}"
+          dest: "C:\\Users\\{{ ansible_user }}\\Desktop\\nasa\\nasa_apod.jpg"
+          
+

@@ -1,0 +1,21 @@
+---
+- name: Installing Apache MSI
+  hosts: windows
+  connection: winrm
+  gather_facts: true
+  
+  tasks:
+    - name: ensure the ansible_examples directory is present
+      ansible.windows.win_file:
+        path: "C:\\Users\\{{ ansible_user }}\\Desktop\\ansible_examples\\"
+        state: directory       
+  
+    - name: download the Notepad++ installer
+      ansible.windows.win_get_url:
+        url: https://github.com/notepad-plus-plus/notepad-plus-plus/releases/download/v8.7.1/npp.8.7.1.Installer.x64.exe
+        dest: "C:\\Users\\{{ ansible_user }}\\Desktop\\ansible_examples\\npp.8.7.1.Installer.x64.exe"
+
+    - name: install Notepad++
+      ansible.windows.win_command:
+        cmd: "C:\\Users\\{{ ansible_user }}\\Desktop\\ansible_examples\\npp.8.7.1.Installer.x64.exe /S"
+

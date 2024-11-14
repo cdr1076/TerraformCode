@@ -1,0 +1,14 @@
+---
+- name: Remove file Download from previous job
+  hosts: windows
+  #connection: winrm   # we already mapped this in our inventory
+
+  vars:
+          nasa_apod: "https://api.nasa.gov/assets/img/general/apod.jpg"
+
+  tasks:
+          - name: Delete NASA picture
+            ansible.windows.win_file:
+                    path: "C:\\Users\\{{ ansible_user }}\\Desktop\\nasa_apod.jpg"
+                    state: absent
+

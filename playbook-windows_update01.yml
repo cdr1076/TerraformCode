@@ -1,0 +1,11 @@
+---
+- name: Windows Updater
+  hosts: windows
+  #connection: winrm   # we already mapped this in our inventory
+
+  tasks:
+    - name: Try to get avail win updates
+      ansible.windows.win_updates:
+        category_names: "*"
+        state: searched
+

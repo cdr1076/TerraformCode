@@ -1,0 +1,16 @@
+---
+- name: Display Windows Services
+  hosts: windows
+  #connection: winrm   # we already mapped this in our inventory
+  gather_facts: true
+
+  tasks:
+  
+      - name: Grab a list of windows services
+        ansible.windows.win_service_info:
+        register: results
+
+      - name: What results did we get?
+        ansible.builtin.debug:
+          var: results
+

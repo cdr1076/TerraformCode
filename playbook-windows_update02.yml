@@ -1,0 +1,21 @@
+---
+- name: Windows Updater
+  hosts: windows
+  #connection: winrm   # we already mapped this in our inventory
+
+  tasks:
+    - name: Try to get avail win updates
+      ansible.windows.win_updates:
+        category_names: "*"
+        state: searched
+      register: results  # save the results
+
+    - name: display all of the results
+      ansible.builtin.debug:
+        var: results     # display the results
+
+    - name: Show just the windows updates
+      ansible.builtin.debug:
+        msg: "{{ item.key }} is the UUID for the update {{ item.value.title }}"
+      with_dict: "{{ results.updates }}"
+

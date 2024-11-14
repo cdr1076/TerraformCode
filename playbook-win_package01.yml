@@ -1,0 +1,21 @@
+---
+- name: Installing Apache MSI
+  hosts: windows
+  connection: winrm
+  gather_facts: true
+  
+  tasks:
+    - name: ensure the ansible_examples directory is present
+      ansible.windows.win_file:
+        path: "C:\\Users\\{{ ansible_user }}\\Desktop\\ansible_examples\\"
+        state: directory       
+  
+    - name: download the Apache installer
+      ansible.windows.win_get_url:
+        url: https://archive.apache.org/dist/httpd/binaries/win32/httpd-2.2.25-win32-x86-no_ssl.msi
+        dest: "C:\\Users\\{{ ansible_user }}\\Desktop\\ansible_examples\\httpd-2.2.25-win32-x86-no_ssl.msi"
+
+    - name: install MSI
+      ansible.windows.win_package:
+        path: "C:\\Users\\{{ ansible_user }}\\Desktop\\ansible_examples\\httpd-2.2.25-win32-x86-no_ssl.msi"
+
